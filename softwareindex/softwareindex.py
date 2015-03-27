@@ -69,6 +69,7 @@ def create_app(configfile=None):
         description=handler.get_description()
         return render_template('test.html', software=software, score=score, description=description)
 
+    @app.route('/index/results/') 
     @app.route('/index/results/<software>') 
     def displayresults(software=None, score=-3):
         handlerlist = [test_handler.test_handler(), stackoverflow_handler.stackoverflow_handler()]
@@ -76,7 +77,14 @@ def create_app(configfile=None):
         for handlerid in range(len(handlerlist)):
             handler = handlerlist[handlerid]
             scores.append(handler.get_score(software))
-        return render_template('results.html', software=software, wordscore=scores[0], stackexchangescore=scores[1])
+
+        handler=coreapi_handler.coreapi_handler()
+        corescore=handler.get_score(software,app.config['COREAPI_KEY'])
+
+        handler=slideshare_handler.slideshare_handler()
+        slidesharescore=handler.get_score(software,app.config['SLIDESHARE_KEY'],app.config['SLIDESHARE_SECRET'])
+        
+        return render_template('results.html', software=software, wordscore=scores[0], stackexchangescore=scores[1], corescore=corescore, slidesharescore=slidesharescore)
 
     return app
 
