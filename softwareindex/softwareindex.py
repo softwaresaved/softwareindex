@@ -4,7 +4,7 @@ from flask_wtf import Form
 from wtforms import TextField, SubmitField, validators
 from wtforms.validators import Required
 from handlers import test_handler
-from handlers import stackexchange_handler
+from handlers import stackoverflow_handler
 
 class BasicForm(Form):
     softwarename = TextField('Software Name', description='Software Name.')
@@ -38,7 +38,7 @@ def create_app(configfile=None):
     @app.route('/index/test/')
     @app.route('/index/test/<software>')
     def test(software=None, score=-2):
-        handler=stackexchange_handler.stackexchange_handler()
+        handler=stackoverflow_handler.stackoverflow_handler()
         score=handler.get_score(software)
         description=handler.get_description()
         return render_template('test.html', software=software, score=score, description=description)
