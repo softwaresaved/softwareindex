@@ -3,7 +3,7 @@ from flask_bootstrap import Bootstrap
 from flask_wtf import Form
 from wtforms import TextField, SubmitField, validators
 from wtforms.validators import Required
-from handlers import test_handler
+from handlers import test_handler, slideshare_handler
 
 class BasicForm(Form):
     softwarename = TextField('Software Name', description='Software Name.')
@@ -40,6 +40,16 @@ def create_app(configfile=None):
         score=handler.get_score(software)
         description=handler.get_description()
         return render_template('test.html', software=software, score=score, description=description)
+
+    @app.route('/index/slideshare/')
+    @app.route('/index/slideshare/<software>')
+    def slideshare(software=None, score=-2):
+        handler=slideshare_handler.slideshare_handler()
+        score=handler.get_score(software)
+        description=handler.get_description()
+        return render_template('test.html', software=software, score=score, description=description)
+
+  
 
     return app
 
