@@ -39,3 +39,7 @@ Where _handler_ is one of:
 * results: a consolidated results page
 
 And _identifier_ is the software search term
+
+## Contributors
+
+This originated from an [idea](https://docs.google.com/document/d/1VbWG5ftvS09RnK9RYJJYSSwS_RgB5jpnfBKH1GJzRAc/edit) proposed at the Collaborations Workshop 2015 by Joe Parker, Peter Burlingson, Yannick Wurm, and Jochen Farwer. It was then [expanded](https://docs.google.com/document/d/1diezPpMLdXhs_R_STKpzo9UyafZguqvycqxhHKmz_oc/edit?usp=sharing) by Neil Chue Hong, Martin Hammitzsch, and Alessandro Felder. The first implementation was developed by Alessandro Felder, Neil Chue Hong and Jez Cope, and presented at the Collaborations Workshop 2015 Hackday.
