@@ -1,6 +1,6 @@
 import requests, json, urllib
 
-SEARCH_URL = 'http://core.ac.uk:80/api-v2/articles/search/'
+SEARCH_URL = 'http://core.kmi.open.ac.uk/api/search/'
 API_KEY = 'FILL THIS IN'
 
 def getCOREMentions(identifier, **kwargs):
@@ -8,10 +8,8 @@ def getCOREMentions(identifier, **kwargs):
     
     Needs an API key, which can be obtained here: http://core.ac.uk/api-keys/register"""
     params = {
-        'apiKey': API_KEY,
-        'metadata': 'false',
-        'pageSize': 100,
-        'page': 1
+        'api_key': API_KEY,
+        'format': 'json',
     }
     params.update(kwargs)
 
@@ -19,6 +17,6 @@ def getCOREMentions(identifier, **kwargs):
     response.raise_for_status()
 
     results = response.json()
+    score = results['ListRecords'][0]['total_hits']
 
-    return (len(results['data'] or []),
-            'mentions in Open Access articles (via http://core.ac.uk/)')
+    return score, 'mentions in Open Access articles (via http://core.ac.uk/)'
