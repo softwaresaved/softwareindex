@@ -2,6 +2,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from handlers import test_handler
 from handlers import stackoverflow_handler
+from handlers import slideshare_handler
+import config
 
 handlerlist = [test_handler.test_handler(), stackoverflow_handler.stackoverflow_handler()]
 software = ['itksnap','tetgen','python','mrbayes','micromanager']
