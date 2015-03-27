@@ -17,24 +17,26 @@ API_KEY = 'FILL THIS IN'
 
 class core_handler:
 
-    def get_score(self, identifier, **kwargs):
+    def get_score(self, software_identifier, **kwargs):
         """Return the number of mentions in CORE and a descriptor, as a tuple.
 
         Needs an API key, which can be obtained here: http://core.ac.uk/api-keys/register"""
+        if isinstance(software_identifier, basestring):
+            params = {
+                'api_key': API_KEY,
+                'format': 'json',
+            }
+            params.update(kwargs)
 
-        params = {
-            'api_key': API_KEY,
-            'format': 'json',
-        }
-        params.update(kwargs)
+            response = requests.get(SEARCH_URL + urllib.quote_plus(software_identifiern), params=params)
+            response.raise_for_status()
 
-        response = requests.get(SEARCH_URL + urllib.quote_plus(identifier), params=params)
-        response.raise_for_status()
+            results = response.json()
+            score = results['ListRecords'][0]['total_hits']
 
-        results = response.json()
-        score = results['ListRecords'][0]['total_hits']
-
-        return score 
+            return score
+        else:
+            return -1
 
     def get_description(self):
         return 'mentions in Open Access articles (via http://core.ac.uk/)'
