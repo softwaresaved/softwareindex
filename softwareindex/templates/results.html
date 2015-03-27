@@ -1,0 +1,10 @@
+<!doctype html>
+<title>Test Index Page</title>
+<h1>Test Page for displaying scores</h1>
+{% if software %}
+  <p>Software Identifier: {{ software }}</p>
+  <p>Scores (wordlength): {{ wordscore }}</p>
+  <p>Scores (stackoverflow): {{ stackexchangescore }}</p>
+ % else %}
+  <p>No software specified</p>
+{% endif %}
