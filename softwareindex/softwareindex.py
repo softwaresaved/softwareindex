@@ -46,13 +46,9 @@ def create_app(configfile=None):
 
     @app.route('/index/stackoverflow/')
     @app.route('/index/stackoverflow/<software>')
-<<<<<<< HEAD
     def stackexchange(software=None, score=-2):
         handler=stackexchange_handler.stackoverflow_handler()
-=======
-    def stackoverflow(software=None, score=-2):
-        handler=stackoverflow_handler.stackoverflow_handler()
->>>>>>> ff7276c1b645d2424778e26ae9ddec5e66ef6081
+
         score=handler.get_score(software)
         description=handler.get_description()
         return render_template('test.html', software=software, score=score, description=description)
