@@ -1,8 +1,10 @@
 <!doctype html>
-<title>Test Index</title>
-<h1>Test Index module</h1>
+<title>Test Index Page</title>
+<h1>Test Page for displaying scores</h1>
 {% if software %}
-  <p>Searching for test data about {{ software }}!</p>
+  <p>Software Identifier: {{ software }}</p>
+  <p>Score: {{ score }}</p>
+  <p>Description: {{ description }}</p>
 {% else %}
   <p>No software specified</p>
 {% endif %}
