@@ -10,7 +10,7 @@
 # - score (Number)
 # - description (String)
 
-import requests, json, urllib
+import requests, urllib
 
 SEARCH_URL = 'http://core.kmi.open.ac.uk/api/search/'
 API_KEY = 'FILL THIS IN'
