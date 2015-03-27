@@ -6,6 +6,7 @@ from wtforms.validators import Required
 from handlers import test_handler
 from handlers import stackoverflow_handler
 from handlers import slideshare_handler
+from handlers import coreapi_handler
 
 class BasicForm(Form):
     softwarename = TextField('Software Name', description='Software Name.')
@@ -15,9 +16,8 @@ class BasicForm(Form):
 
 def create_app(configfile=None):
     app = Flask(__name__)
+    app.config.from_object('config')
     Bootstrap(app)
-
-    app.config['SECRET_KEY'] = 'devkey'
 
     @app.route('/')
     def index():
@@ -44,12 +44,15 @@ def create_app(configfile=None):
         description=handler.get_description()
         return render_template('test.html', software=software, score=score, description=description)
 
-    @app.route('/index/stackexchange/')
     @app.route('/index/stackoverflow/')
-    @app.route('/index/stackexchange/<software>')
     @app.route('/index/stackoverflow/<software>')
+<<<<<<< HEAD
     def stackexchange(software=None, score=-2):
         handler=stackexchange_handler.stackoverflow_handler()
+=======
+    def stackoverflow(software=None, score=-2):
+        handler=stackoverflow_handler.stackoverflow_handler()
+>>>>>>> ff7276c1b645d2424778e26ae9ddec5e66ef6081
         score=handler.get_score(software)
         description=handler.get_description()
         return render_template('test.html', software=software, score=score, description=description)
@@ -58,15 +61,15 @@ def create_app(configfile=None):
     @app.route('/index/slideshare/<software>')
     def slideshare(software=None, score=-2):
         handler=slideshare_handler.slideshare_handler()
-        score=handler.get_score(software)
+        score=handler.get_score(software,app.config['SLIDESHARE_KEY'],app.config['SLIDESHARE_SECRET'])
         description=handler.get_description()
         return render_template('test.html', software=software, score=score, description=description)
 
     @app.route('/index/core/')
     @app.route('/index/core/<software>')
     def core(software=None, score=-2):
-        handler=core_handler.core_handler()
-        score=handler.get_score(software)
+        handler=coreapi_handler.coreapi_handler()
+        score=handler.get_score(software,app.config['COREAPI_KEY'])
         description=handler.get_description()
         return render_template('test.html', software=software, score=score, description=description)
 

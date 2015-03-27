@@ -19,13 +19,11 @@ from bs4 import BeautifulSoup
 
 SEARCH_URL = 'https://www.slideshare.net/api/2/search_slideshows'
 MATCH_STRING = 'TotalResults'
-API_KEY = 'FILL THIS IN'
-SHARED_SECRET = 'FILL THIS IN'
 
 
 class slideshare_handler:
 
-    def get_score(self, identifier, **kwargs):
+    def get_score(self, identifier, key, secret, **kwargs):
         """ Return the number of mentions in SlideShare and a descriptor
         Needs an API key, which can be obtained here:
         http://www.slideshare.net/developers/applyforapi """
@@ -33,11 +31,10 @@ class slideshare_handler:
         ts = int(time.time())
         strts = str(ts)
 
-
         params = {
-            'api_key' : API_KEY,
+            'api_key' : key,
             'ts' : strts,
-            'hash' : sha1(SHARED_SECRET+strts).hexdigest(),
+            'hash' : sha1(secret+strts).hexdigest(),
             'q' : identifier,
         }
         params.update(kwargs)        

@@ -13,22 +13,21 @@
 import requests, urllib
 
 SEARCH_URL = 'http://core.kmi.open.ac.uk/api/search/'
-API_KEY = 'FILL THIS IN'
 
-class core_handler:
+class coreapi_handler:
 
-    def get_score(self, software_identifier, **kwargs):
+    def get_score(self, software_identifier, key, **kwargs):
         """Return the number of mentions in CORE and a descriptor, as a tuple.
 
         Needs an API key, which can be obtained here: http://core.ac.uk/api-keys/register"""
         if isinstance(software_identifier, basestring):
             params = {
-                'api_key': API_KEY,
+                'api_key': key,
                 'format': 'json',
             }
             params.update(kwargs)
 
-            response = requests.get(SEARCH_URL + urllib.quote_plus(software_identifiern), params=params)
+            response = requests.get(SEARCH_URL + urllib.quote_plus(software_identifier), params=params)
             response.raise_for_status()
 
             results = response.json()
