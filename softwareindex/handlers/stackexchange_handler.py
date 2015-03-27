@@ -23,7 +23,7 @@ class stackoverflow_handler:
 			view_sum = 0;
 			for question_number in range(len(items)):
 				question_view_count = items[question_number][u'view_count']
-				view_sum = view_Sum+question_view_count	
+				view_sum = view_sum+question_view_count	
 			print("number of views: "+str(view_sum))
 			return view_sum
         else:
