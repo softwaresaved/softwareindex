@@ -4,7 +4,7 @@ from flask_wtf import Form
 from wtforms import TextField, SubmitField, validators
 from wtforms.validators import Required
 from handlers import test_handler
-from handlers import stackexchange_handler
+from handlers import stackoverflow_handler
 from handlers import slideshare_handler
 
 class BasicForm(Form):
@@ -48,7 +48,7 @@ def create_app(configfile=None):
     @app.route('/index/stackoverflow/')
     @app.route('/index/stackexchange/<software>')
     @app.route('/index/stackoverflow/<software>')
-    def stackexchage(software=None, score=-2):
+    def stackexchange(software=None, score=-2):
         handler=stackexchange_handler.stackoverflow_handler()
         score=handler.get_score(software)
         description=handler.get_description()
@@ -70,7 +70,14 @@ def create_app(configfile=None):
         description=handler.get_description()
         return render_template('test.html', software=software, score=score, description=description)
 
-  
+    @app.route('/index/results/<software>') 
+    def displayresults(software=None, score=-3):
+        handlerlist = [test_handler.test_handler(), stackoverflow_handler.stackoverflow_handler()]
+        scores=[]
+        for handlerid in range(len(handlerlist)):
+            handler = handlerlist[handlerid]
+            scores.append(handler.get_score(software))
+        return render_template('results.html', software=software, wordscore=scores[0], stackexchangescore=scores[1])
 
     return app
 
