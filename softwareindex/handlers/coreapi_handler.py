@@ -12,7 +12,7 @@
 
 import requests, urllib
 
-SEARCH_URL = 'http://core.kmi.open.ac.uk/api/search/'
+SEARCH_URL = 'http://core.ac.uk:80/api-v2/search/'
 
 class coreapi_handler:
 
@@ -22,8 +22,7 @@ class coreapi_handler:
         Needs an API key, which can be obtained here: http://core.ac.uk/api-keys/register"""
         if isinstance(software_identifier, basestring):
             params = {
-                'api_key': key,
-                'format': 'json',
+                'apiKey': key,
             }
             params.update(kwargs)
 
@@ -31,7 +30,7 @@ class coreapi_handler:
             response.raise_for_status()
 
             results = response.json()
-            score = results['ListRecords'][0]['total_hits']
+            score = results['totalHits']
 
             return score
         else:
